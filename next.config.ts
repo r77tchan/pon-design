@@ -1,7 +1,18 @@
 import type { NextConfig } from "next";
 
+const normalizeBasePath = (value: string) => {
+  if (!value) return "";
+  return value.startsWith("/") ? value : `/${value}`;
+};
+
+const basePath = normalizeBasePath(process.env.NEXT_PUBLIC_BASE_PATH ?? "");
+
 const nextConfig: NextConfig = {
-  /* config options here */
+  output: "export",
+  trailingSlash: true,
+  images: { unoptimized: true },
+  basePath,
+  assetPrefix: basePath || undefined,
 };
 
 export default nextConfig;
